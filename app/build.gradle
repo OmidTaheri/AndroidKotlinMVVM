@@ -11,16 +11,32 @@ android {
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
-
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            shrinkResources false
+            useProguard false
+            debuggable true
+            buildConfigField("String", "BASE_URL", "\"http://moviesapi.ir/\"")
         }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", "\"http://moviesapi.ir/\"")
+        }
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -33,4 +49,28 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+
+    // App dependencies
+    final RETROFIT_VERSION = '2.8.1'
+    final GSON_VERSION = '2.8.6'
+    final RXJAVA_VERSION = '3.0.0'
+    final RXANDROID_VERSION = '3.0.0'
+
+
+    // network
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation "com.google.code.gson:gson:$GSON_VERSION"
+    implementation 'com.amitshekhar.android:rx2-android-networking:1.0.0'
+
+
+    // reactive
+    implementation "io.reactivex.rxjava3:rxandroid:$RXANDROID_VERSION"
+    implementation "io.reactivex.rxjava3:rxjava:$RXJAVA_VERSION"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
+
+    //Dialog
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 }
