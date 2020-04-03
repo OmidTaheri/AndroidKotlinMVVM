@@ -1,13 +1,14 @@
 package ir.omidtaheri.androidkotlinmvvm.data.network
 
-import io.reactivex.rxjava3.core.Observable
+
+import io.reactivex.Observable
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.*
 import retrofit2.http.*
 
 interface ApiInterface {
 
     @GET(ApiEndPoint.ENDPOINT_MOVIES_LIST)
-    fun MovieList(@Query("page") page:Int):Observable<MovieListResponse>
+    fun MovieList(@Query("page") page:Int): Observable<MovieListResponse>
 
     @GET(ApiEndPoint.ENDPOINT_MOVIES_LIST)
     fun SearchName(@Query("q")name:String , @Query("page")page:Int):Observable<SearchNameResponse>

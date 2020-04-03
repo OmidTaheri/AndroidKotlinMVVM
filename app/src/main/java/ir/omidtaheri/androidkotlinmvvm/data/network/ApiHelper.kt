@@ -1,6 +1,6 @@
 package ir.omidtaheri.androidkotlinmvvm.data.network
 
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.*
 
 
@@ -8,7 +8,7 @@ interface ApiHelper {
 
     fun MovieList(page :Int): Observable<MovieListResponse>
 
-    fun SearchName(name:String , page:Int):Observable<SearchNameResponse>
+    fun SearchName(name:String , page:Int): Observable<SearchNameResponse>
 
     fun SendMovie(request: SendMovieRequest): Observable<SendMovieResponse>
 

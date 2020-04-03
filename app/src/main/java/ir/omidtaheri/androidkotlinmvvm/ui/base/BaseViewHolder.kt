@@ -12,7 +12,7 @@ abstract class BaseViewHolder(itemView: View) :
 
     abstract fun clear()
 
-    fun onBind(position: Int) {
+    open fun onBind(position: Int) {
         currentPosition = position
         clear()
     }

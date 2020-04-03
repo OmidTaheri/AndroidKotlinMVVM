@@ -11,8 +11,8 @@ import ir.omidtaheri.androidkotlinmvvm.utils.CommonUtils
 
 abstract class BaseFragment : Fragment(), MvpView {
 
-    private var mActivity: BaseActivity? = null
-    private lateinit var mProgressDialog: ProgressDialog
+      var mActivity: BaseActivity? = null
+      lateinit var mProgressDialog: ProgressDialog
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

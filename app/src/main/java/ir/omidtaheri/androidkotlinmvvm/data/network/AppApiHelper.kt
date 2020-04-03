@@ -1,6 +1,6 @@
 package ir.omidtaheri.androidkotlinmvvm.data.network
 
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.*
 
 class AppApiHelper(val mApiInterface: ApiInterface) : ApiHelper {

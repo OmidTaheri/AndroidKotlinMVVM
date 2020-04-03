@@ -1,7 +1,8 @@
 package ir.omidtaheri.androidkotlinmvvm.data
 
 import android.content.Context
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
+
 import ir.omidtaheri.androidkotlinmvvm.data.network.ApiHelper
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.*
 import ir.omidtaheri.androidkotlinmvvm.data.pref.PreferencesHelper
