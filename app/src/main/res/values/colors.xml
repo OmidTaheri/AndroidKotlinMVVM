@@ -6,6 +6,7 @@
     <color name="green">#69BC45</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="red">#DD3636</color>
 
     <!--Dark text on light backgrounds -->
     <color name="darkPrimaryText">#DE000000</color>
