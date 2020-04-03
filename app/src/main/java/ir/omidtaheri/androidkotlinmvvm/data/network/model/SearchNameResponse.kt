@@ -6,10 +6,10 @@ import android.os.Parcelable.Creator
 
 
 
-data class SearchNameResponse(val data: List<Movie?>?, val metadata: Metadata?) : Parcelable {
+data class SearchNameResponse(val data: List<Movie>, val metadata: Metadata?) : Parcelable {
 
     constructor(parcel: Parcel) : this(
-        parcel.createTypedArrayList(Movie),
+        parcel.createTypedArrayList(Movie)!!,
         parcel.readParcelable(Metadata::class.java.classLoader)
     ) {
     }

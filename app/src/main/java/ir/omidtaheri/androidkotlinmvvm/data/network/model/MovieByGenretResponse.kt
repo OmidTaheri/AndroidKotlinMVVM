@@ -4,11 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 
 
-data class MovieByGenretResponse(val data: List<Movie?>?, val metadata: Metadata?) : Parcelable {
+data class MovieByGenretResponse(val data: List<Movie>, val metadata: Metadata) : Parcelable {
 
     constructor(parcel: Parcel) : this(
-        parcel.createTypedArrayList(Movie),
-        parcel.readParcelable(Metadata::class.java.classLoader)
+        parcel.createTypedArrayList(Movie)!!,
+        parcel.readParcelable(Metadata::class.java.classLoader)!!
     ) {
     }
 

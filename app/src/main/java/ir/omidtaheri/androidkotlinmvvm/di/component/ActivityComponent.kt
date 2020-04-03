@@ -7,6 +7,7 @@ import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.DetailMovieActivity
 import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.gallery.GalleryFragment
 import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.info.IntroFragment
 import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.summary.SummaryFragment
+import ir.omidtaheri.androidkotlinmvvm.ui.genredmovies.GenredMoviesActivity
 import ir.omidtaheri.androidkotlinmvvm.ui.splash.SplashActivity
 
 
@@ -25,7 +26,7 @@ interface ActivityComponent {
 //
 //    fun inject(activity: SearchActivity)
 //
-//    fun inject(activity: GenredMoviesActivity)
+    fun inject(activity: GenredMoviesActivity)
 //
 //    fun inject(fragment: CategoryFragment)
 //

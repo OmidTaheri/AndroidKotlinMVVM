@@ -26,8 +26,10 @@ data class Movie(
         parcel.readString(),
         parcel.createStringArrayList(),
         parcel.createStringArrayList()
-    ) {
-    }
+    )
+
+
+    constructor() : this(-1,"","","","","", listOf<String>(), listOf<String>())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)

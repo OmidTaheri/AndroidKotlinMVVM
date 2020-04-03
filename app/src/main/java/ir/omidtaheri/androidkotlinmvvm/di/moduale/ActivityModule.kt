@@ -20,6 +20,9 @@ import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.info.IntroPresenter
 import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.summary.SummaryMvpPresenter
 import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.summary.SummaryMvpView
 import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.summary.SummaryPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.genredmovies.GenredMoviesMvpPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.genredmovies.GenredMoviesMvpView
+import ir.omidtaheri.androidkotlinmvvm.ui.genredmovies.GenredMoviesPresenter
 import ir.omidtaheri.androidkotlinmvvm.ui.splash.SplashMvpPresenter
 import ir.omidtaheri.androidkotlinmvvm.ui.splash.SplashMvpView
 import ir.omidtaheri.androidkotlinmvvm.ui.splash.SplashPresenter
@@ -140,13 +143,13 @@ class ActivityModule(private val mActivity: AppCompatActivity) {
         return presenter
     }
 
-//    @Provides
-//    @PerActivity
-//    fun provideGenredMoviesPresenter(
-//        presenter: GenredMoviesPresenter<GenredMoviesMvpView>
-//    ): GenredMoviesMvpPresenter<GenredMoviesMvpView> {
-//        return presenter
-//    }
+    @Provides
+    @PerActivity
+    fun provideGenredMoviesPresenter(
+        presenter: GenredMoviesPresenter<GenredMoviesMvpView>
+    ): GenredMoviesMvpPresenter<GenredMoviesMvpView> {
+        return presenter
+    }
 
     @Provides
     @PerActivity

@@ -1,2 +1,2 @@
 rootProject.name='AndroidKotlinMVVM'
-include ':app'
+include ':app', ':searchlibrary'

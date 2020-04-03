@@ -107,8 +107,10 @@ dependencies {
     implementation 'com.google.android:flexbox:0.3.2'
     //materialratingbar
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
-
+    //oblique
+    implementation 'com.fxn769:oblique:2.0'
 
     //Dialog
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation project(path: ':searchlibrary')
 }
