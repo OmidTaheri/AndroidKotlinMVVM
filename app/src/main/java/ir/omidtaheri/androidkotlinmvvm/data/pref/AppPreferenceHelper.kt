@@ -10,7 +10,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
 
-class AppPreferenceaHelper (val context :Context , val prefFileName :String): PreferencesHelper {
+class AppPreferenceHelper (val context :Context, val prefFileName :String): PreferencesHelper {
 
 
     companion object{
