@@ -5,15 +5,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class AppSchedulerProvider : SchedulerProvider {
-    override fun ui(): Scheduler? {
+    override fun ui(): Scheduler {
         return AndroidSchedulers.mainThread()
     }
 
-    override fun computation(): Scheduler? {
+    override fun computation(): Scheduler {
         return Schedulers.computation()
     }
 
-    override fun io(): Scheduler? {
+    override fun io(): Scheduler {
         return Schedulers.io()
     }
 }

@@ -1,5 +1,5 @@
-
 <resources>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowContentOverlay">@null</item>
@@ -21,42 +21,38 @@
         <item name="android:textAppearance">@style/TextAppearance.Text.Regular</item>
     </style>
 
-    <style name="ToolbarColoredBackArrow" parent="AppTheme">
-        <item name="colorControlNormal">@color/white</item>
-    </style>
-
 
     <style name="TextAppearance.Text.Regular" parent="android:TextAppearance">
-<!--        <item name="fontPath">fonts/byekan.ttf</item>-->
+        <!--        <item name="fontPath">fonts/byekan.ttf</item>-->
     </style>
 
     <style name="TextAppearance.Text.Bold" parent="android:TextAppearance">
-<!--        <item name="fontPath">fonts/byekan.ttf</item>-->
+        <!--        <item name="fontPath">fonts/byekan.ttf</item>-->
     </style>
 
     <style name="TextAppearance.Text.Light" parent="android:TextAppearance">
-<!--        <item name="fontPath">fonts/byekan.ttf</item>-->
+        <!--    <item name="fontPath">fonts/byekan.ttf</item> -->
     </style>
 
     <style name="TextAppearance.Text.Italic" parent="android:TextAppearance">
-<!--        <item name="fontPath">fonts/byekan.ttf</item>-->
+        <!--        <item name="fontPath">fonts/byekan.ttf</item>-->
     </style>
 
 
     <style name="TextAppearance.Text.EnglishRegular" parent="android:TextAppearance">
-<!--        <item name="fontPath">fonts/roboto_regular.ttf</item>-->
+        <!--        <item name="fontPath">fonts/roboto_regular.ttf</item>-->
     </style>
 
     <style name="TextAppearance.Text.EnglishBold" parent="android:TextAppearance">
-<!--        <item name="fontPath">fonts/roboto_bold.ttf</item>-->
+        <!--        <item name="fontPath">fonts/roboto_bold.ttf</item>-->
     </style>
 
     <style name="TextAppearance.Text.EnglishLight" parent="android:TextAppearance">
-<!--        <item name="fontPath">fonts/roboto_regular.ttf</item>-->
+        <!--        <item name="fontPath">fonts/roboto_regular.ttf</item>-->
     </style>
 
     <style name="TextAppearance.Text.EnglishItalic" parent="android:TextAppearance">
-<!--        <item name="fontPath">fonts/roboto_regular.ttf</item>-->
+        <!--        <item name="fontPath">fonts/roboto_regular.ttf</item>-->
     </style>
 
 
@@ -261,15 +257,8 @@
 
     <style name="ErrorButtonStyle" parent="DarkCaption">
         <item name="android:textColor">@color/red</item>
-
         <item name="android:background">@android:color/transparent</item>
     </style>
-
-
-    <style name="LightHeadingProductTilte" parent="LightSub">
-        <item name="android:textColor">@color/white_display1</item>
-    </style>
-
 
     <style name="showAllStyle" parent="DarkBody1">
         <item name="android:textColor">@color/white</item>
@@ -283,45 +272,5 @@
     </style>
 
 
-<!--    <style name="MyCustomTheme" parent="MaterialSearchBarLight">-->
-<!--        <item name="mt_searchBarColor">@color/red</item>-->
-
-<!--        <item name="mt_dividerColor">@color/searchBarDividerColor</item>-->
-<!--        <item name="mt_textCursorTint">@color/searchBarCursorColor</item>-->
-<!--        <item name="mt_textColor">@color/searchBarTextColor</item>-->
-<!--        <item name="mt_hintColor">@color/searchBarHintColor</item>-->
-<!--        <item name="mt_placeholderColor">@color/searchBarPlaceholderColor</item>-->
-<!--        <item name="mt_highlightedTextColor">@color/searchBarTextHighlightColor</item>-->
-<!--        <item name="mt_leftTextSelectorTint">@color/leftTextSelectorColor</item>-->
-<!--        <item name="mt_middleTextSelectorTint">@color/middleTextSelectorColor</item>-->
-<!--        <item name="mt_rightTextSelectorTint">@color/rightTextSelectorColor</item>-->
-<!--        <item name="mt_leftTextSelectorDrawable">-->
-<!--            @drawable/text_select_handle_left_mtrl_alpha_mtrlsearch-->
-<!--        </item>-->
-<!--        <item name="mt_middleTextSelectorDrawable">-->
-<!--            @drawable/text_select_handle_middle_mtrl_alpha_mtrlsearch-->
-<!--        </item>-->
-<!--        <item name="mt_rightTextSelectorDrawable">-->
-<!--            @drawable/text_select_handle_right_mtrl_alpha_mtrlsearch-->
-<!--        </item>-->
-<!--        <item name="mt_handlesTintEnabled">true</item>-->
-
-<!--    </style>-->
-
-
-
-    <style name="SearchButtonStyle" parent="DarkBody1">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:background">@color/colorAccent</item>
-
-        <item name="android:layout_marginLeft">@dimen/material_component_dialogs_padding_around_buttons</item>
-        <item name="android:layout_marginRight">@dimen/material_component_dialogs_padding_around_buttons</item>
-
-    </style>
-
-
-    <style name="Emptyview" parent="LightBody1">
-
-    </style>
-
 </resources>
+

@@ -10,7 +10,7 @@ import java.net.SocketTimeoutException
 import javax.net.ssl.HttpsURLConnection
 
 
-class BasePresenter<V : MvpView>(
+open class BasePresenter<V : MvpView>(
    var mDataManager: DataManager,
    var mSchedulerProvider: SchedulerProvider,
    var mCompositeDisposable: CompositeDisposable) : MvpPresenter<V> {
