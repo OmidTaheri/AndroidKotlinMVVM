@@ -71,4 +71,6 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:$RXJAVA_VERSION"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
 
+    //Dialog
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 }

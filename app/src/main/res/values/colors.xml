@@ -3,4 +3,16 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="green">#69BC45</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!--Dark text on light backgrounds -->
+    <color name="darkPrimaryText">#DE000000</color>
+    <color name="darkSecondaryText">#8A000000</color>
+    <color name="darkDisabledText">#61000000</color>
+    <color name="darkHintText">#61000000</color>
+    <color name="darkDividers">#1F000000</color>
+
+
 </resources>
