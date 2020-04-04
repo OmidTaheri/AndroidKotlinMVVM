@@ -14,18 +14,21 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
+import butterknife.ButterKnife
 import com.mancj.materialsearchbar.MaterialSearchBar
 import ir.omidtaheri.androidkotlinmvvm.R
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.Movie
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BaseActivity
 import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.DetailMovieActivity
+import javax.inject.Inject
 
 
 class SearchActivity : BaseActivity(), SearchMvpView,
     SearchRecyclerAdapter.Callback,
     MaterialSearchBar.OnSearchActionListener {
-
+    @Inject
     lateinit var mPresenter: SearchMvpPresenter<SearchMvpView>
+
     lateinit var scrollListener: PaginationScrollListener
 
     private var isLoading = false
@@ -62,12 +65,17 @@ class SearchActivity : BaseActivity(), SearchMvpView,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search2)
 
-        mPresenter!!.onAttach(this)
+        getActivityComponent().inject(this)
+
+        setUnBinder(ButterKnife.bind(this))
+
+        mPresenter.onAttach(this)
+
         setUp()
     }
 
     override fun setUp() {
-        searchButton!!.setOnClickListener { doMySearch(searchView.getText()) }
+        searchButton.setOnClickListener { doMySearch(searchView.getText()) }
         searchView.setOnSearchActionListener(this)
         searchView.addTextChangeListener(object : TextWatcher {
             override fun beforeTextChanged(
@@ -85,9 +93,9 @@ class SearchActivity : BaseActivity(), SearchMvpView,
                 i2: Int
             ) {
                 if (!searchView.getText().equals("")) {
-                    searchButton!!.visibility = View.VISIBLE
+                    searchButton.visibility = View.VISIBLE
                 } else {
-                    searchButton!!.visibility = View.GONE
+                    searchButton.visibility = View.GONE
                 }
             }
 
@@ -98,40 +106,40 @@ class SearchActivity : BaseActivity(), SearchMvpView,
     private fun doMySearch(query: String) {
         errorLayout.setVisibility(View.GONE)
         hideKeyboard()
-        mPresenter!!.searchFirstPage(query)
+        mPresenter.searchFirstPage(query)
     }
 
     override fun onDestroy() {
-        mPresenter!!.onDetach()
+        mPresenter.onDetach()
         super.onDestroy()
     }
 
     override fun sucssed_load_first_page(list: List<Movie>) {
-        mainProgress!!.visibility = View.GONE
+        mainProgress.visibility = View.GONE
         if (currentPage <= TOTAL_PAGES && TOTAL_PAGES != 1) {
-            adapter!!.addLoadingFooter()
+            adapter.addLoadingFooter()
         } else isLastPage = true
     }
 
     override fun error_load_first_page(message: Int, query: String) {
         if (errorLayout.getVisibility() === View.GONE) {
             errorLayout.setVisibility(View.VISIBLE)
-            mainProgress!!.visibility = View.GONE
+            mainProgress.visibility = View.GONE
             errorText.setText(getResources().getString(message))
         }
-        errorBtnRetry!!.setOnClickListener {
+        errorBtnRetry.setOnClickListener {
             errorLayout.setVisibility(View.GONE)
-            mainProgress!!.visibility = View.VISIBLE
-            mPresenter!!.searchFirstPage(query)
+            mainProgress.visibility = View.VISIBLE
+            mPresenter.searchFirstPage(query)
         }
     }
 
     override fun sucssed_load_next_page(list: List<Movie>) {
-        adapter!!.removeLoadingFooter()
+        adapter.removeLoadingFooter()
         isLoading = false
         adapter.addAll(list)
         if (currentPage != TOTAL_PAGES) {
-            adapter!!.addLoadingFooter()
+            adapter.addLoadingFooter()
         } else isLastPage = true
     }
 
@@ -140,7 +148,7 @@ class SearchActivity : BaseActivity(), SearchMvpView,
         page: Int,
         error_message: Int
     ) {
-        adapter!!.showRetry(true, getResources().getString(error_message), query, page)
+        adapter.showRetry(true, getResources().getString(error_message), query, page)
     }
 
     override fun SetTotalPage(total_page: Int) {
@@ -161,11 +169,11 @@ class SearchActivity : BaseActivity(), SearchMvpView,
         searchList.setLayoutManager(layoutManager)
         //////////
         adapter = SearchRecyclerAdapter(items_list.toMutableList(), this@SearchActivity, manager)
-        adapter!!.setCallback(this)
+        adapter.setCallback(this)
         searchList.setAdapter(adapter)
         layoutManager.setSpanSizeLookup(object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return when (adapter!!.getItemViewType(position)) {
+                return when (adapter.getItemViewType(position)) {
                     SearchRecyclerAdapter.VIEW_TYPE_EMPTY -> {
                         searchList.removeOnScrollListener(scrollListener)
                         layoutManager.getSpanCount()
@@ -181,7 +189,7 @@ class SearchActivity : BaseActivity(), SearchMvpView,
             override fun loadMoreItems() {
                 isLoading = true
                 currentPage += 1
-                mPresenter!!.searchNextPage(currentPage, query!!)
+                mPresenter.searchNextPage(currentPage, query)
             }
 
             override fun isLastPage(): Boolean {
@@ -197,10 +205,10 @@ class SearchActivity : BaseActivity(), SearchMvpView,
             }
         }
         searchList.addOnScrollListener(scrollListener)
-        if (items_list != null && items_list.size > 0) {
+        if ( items_list.size > 0) {
             sucssed_load_first_page(items_list)
         } else {
-            mainProgress!!.visibility = View.GONE
+            mainProgress.visibility = View.GONE
         }
     }
 
@@ -215,7 +223,7 @@ class SearchActivity : BaseActivity(), SearchMvpView,
     }
 
     override fun retryPageLoad(query: String?, page: Int) {
-        mPresenter!!.searchNextPage(page, query!!)
+        mPresenter.searchNextPage(page, query!!)
     }
 
     override fun onSearchStateChanged(enabled: Boolean) {}
@@ -245,9 +253,9 @@ class SearchActivity : BaseActivity(), SearchMvpView,
 
     override fun visibility_progressBar(show: Boolean) {
         if (show) {
-            mainProgress!!.visibility = View.VISIBLE
+            mainProgress.visibility = View.VISIBLE
         } else {
-            mainProgress!!.visibility = View.GONE
+            mainProgress.visibility = View.GONE
         }
     }
 

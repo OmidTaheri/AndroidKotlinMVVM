@@ -2,13 +2,15 @@ package ir.omidtaheri.androidkotlinmvvm.data
 
 import android.content.Context
 import io.reactivex.Observable
-
 import ir.omidtaheri.androidkotlinmvvm.data.network.ApiHelper
-import ir.omidtaheri.androidkotlinmvvm.data.network.model.*
+import ir.omidtaheri.androidkotlinmvvm.data.network.model.DetailMovieResponse
+import ir.omidtaheri.androidkotlinmvvm.data.network.model.SendMovieRequest
 import ir.omidtaheri.androidkotlinmvvm.data.pref.PreferencesHelper
+import ir.omidtaheri.androidkotlinmvvm.di.ApplicationContext
+import javax.inject.Inject
 
-class AppDataManager(
-    val context: Context,
+class AppDataManager  @Inject constructor(
+    @ApplicationContext val context: Context,
     val preferencesHelper: PreferencesHelper,
     val apiHelper: ApiHelper
 ) : DataManager {

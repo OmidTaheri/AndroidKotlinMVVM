@@ -53,7 +53,7 @@ class CategoryAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             list.size
         } else {
             1
@@ -61,7 +61,7 @@ class CategoryAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             VIEW_TYPE_NORMAL
         } else {
             VIEW_TYPE_EMPTY
@@ -69,7 +69,7 @@ class CategoryAdapter(
     }
 
     fun addItems(repoList: List<GenresListResponse>?) {
-        list!!.addAll(repoList!!)
+        list.addAll(repoList!!)
         notifyDataSetChanged()
     }
 
@@ -83,9 +83,9 @@ class CategoryAdapter(
         override fun clear() {}
         override fun onBind(position: Int) {
             super.onBind(position)
-            val item = list!![position]
-            categoryName!!.text = item.name
-            itemView.setOnClickListener { if (mCallback != null) mCallback!!.onItemClick(item) }
+            val item = list[position]
+            categoryName.text = item.name
+            itemView.setOnClickListener { mCallback.onItemClick(item) }
         }
 
         init {
@@ -94,17 +94,17 @@ class CategoryAdapter(
     }
 
     inner class EmptyViewHolder(itemView: View) :
-        BaseViewHolder(itemView!!) {
+        BaseViewHolder(itemView) {
         @BindView(R.id.message)
         lateinit var message: TextView
         override fun clear() {}
         override fun onBind(position: Int) {
             super.onBind(position)
-            message!!.text = "موردی وجود ندارد"
+            message.text = "موردی وجود ندارد"
         }
 
         init {
-            ButterKnife.bind(this, itemView!!)
+            ButterKnife.bind(this, itemView)
         }
     }
 

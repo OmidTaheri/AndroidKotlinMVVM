@@ -13,15 +13,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
+import butterknife.ButterKnife
 import ir.omidtaheri.androidkotlinmvvm.R
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.Movie
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BaseActivity
 import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.DetailMovieActivity
+import javax.inject.Inject
 
 class GenredMoviesActivity : BaseActivity(), GenredMoviesMvpView,
     GenredMoviesRecyclerAdapter.Callback {
 
-
+    @Inject
     lateinit  var mPresenter: GenredMoviesMvpPresenter<GenredMoviesMvpView>
     lateinit var scrollListener: PaginationScrollListener
 
@@ -58,12 +60,18 @@ class GenredMoviesActivity : BaseActivity(), GenredMoviesMvpView,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_genre_movie)
 
-        mPresenter!!.onAttach(this)
+
+        getActivityComponent().inject(this)
+
+        setUnBinder(ButterKnife.bind(this))
+
+        mPresenter.onAttach(this)
+
         setUp()
     }
 
     override fun onDestroy() {
-        mPresenter!!.onDetach()
+        mPresenter.onDetach()
         super.onDestroy()
     }
 
@@ -136,7 +144,7 @@ class GenredMoviesActivity : BaseActivity(), GenredMoviesMvpView,
             override fun getSpanSize(position: Int): Int {
                 return when (adapter.getItemViewType(position)) {
                     GenredMoviesRecyclerAdapter.VIEW_TYPE_EMPTY -> {
-                        movieList.removeOnScrollListener(scrollListener!!)
+                        movieList.removeOnScrollListener(scrollListener)
                         layoutManager.spanCount
                     }
                     GenredMoviesRecyclerAdapter.VIEW_TYPE_NORMAL -> 1
@@ -163,11 +171,11 @@ class GenredMoviesActivity : BaseActivity(), GenredMoviesMvpView,
                 return TOTAL_PAGES
             }
         }
-        movieList!!.addOnScrollListener(scrollListener)
-        if (items_list != null && items_list.size > 0) {
+        movieList.addOnScrollListener(scrollListener)
+        if ( items_list.size > 0) {
             sucssed_load_first_page(items_list)
         } else {
-            mainProgress!!.visibility = View.GONE
+            mainProgress.visibility = View.GONE
         }
     }
 

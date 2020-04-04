@@ -5,7 +5,7 @@ import android.annotation.TargetApi
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.pm.PackageManager
- import android.os.Build
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -14,21 +14,38 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import butterknife.Unbinder
 import com.google.android.material.snackbar.Snackbar
+import ir.omidtaheri.androidkotlinmvvm.AppLoader
 import ir.omidtaheri.androidkotlinmvvm.R
+import ir.omidtaheri.androidkotlinmvvm.di.component.ActivityComponent
+import ir.omidtaheri.androidkotlinmvvm.di.component.DaggerActivityComponent
+import ir.omidtaheri.androidkotlinmvvm.di.moduale.ActivityModule
 import ir.omidtaheri.androidkotlinmvvm.utils.CommonUtils
 import ir.omidtaheri.androidkotlinmvvm.utils.NetworkUtils
 
-abstract class BaseActivity : AppCompatActivity() , MvpView ,  BaseFragment.Callback {
+abstract class BaseActivity : AppCompatActivity(), MvpView, BaseFragment.Callback {
 
 
     private lateinit var mProgressDialog: ProgressDialog
 
+    private lateinit var mActivityComponent: ActivityComponent
+
+    private lateinit var mUnBinder: Unbinder
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mActivityComponent = DaggerActivityComponent.builder()
+            .activityModule(ActivityModule(this))
+            .applicationComponent((application as AppLoader).getComponent())
+            .build()
     }
 
+
+    open fun getActivityComponent(): ActivityComponent {
+        return mActivityComponent
+    }
 
     @TargetApi(Build.VERSION_CODES.M)
     fun requestPermissionsSafely(permissions: Array<String>, requestCode: Int) {
@@ -40,7 +57,7 @@ abstract class BaseActivity : AppCompatActivity() , MvpView ,  BaseFragment.Call
     @TargetApi(Build.VERSION_CODES.M)
     fun hasPermission(permission: String): Boolean {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-                checkSelfPermission(permission) === PackageManager.PERMISSION_GRANTED
+                checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
     }
 
 
@@ -50,7 +67,7 @@ abstract class BaseActivity : AppCompatActivity() , MvpView ,  BaseFragment.Call
     }
 
     override fun hideLoading() {
-        if (mProgressDialog != null && mProgressDialog.isShowing) {
+        if (mProgressDialog.isShowing) {
             mProgressDialog.cancel()
         }
     }
@@ -108,5 +125,16 @@ abstract class BaseActivity : AppCompatActivity() , MvpView ,  BaseFragment.Call
         }
     }
 
-      abstract fun setUp()
+    fun setUnBinder(unBinder: Unbinder) {
+        mUnBinder = unBinder
+    }
+
+    override fun onDestroy() {
+
+            mUnBinder.unbind()
+
+        super.onDestroy()
+    }
+
+    abstract fun setUp()
 }

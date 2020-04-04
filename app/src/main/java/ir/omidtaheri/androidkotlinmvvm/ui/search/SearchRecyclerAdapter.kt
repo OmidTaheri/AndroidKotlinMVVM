@@ -83,7 +83,7 @@ class SearchRecyclerAdapter(
 
 
     override fun getItemCount(): Int {
-        return if (list != null && list.size != 0) {
+        return if (  list.size != 0) {
             list.size
         } else {
             1
@@ -101,7 +101,7 @@ class SearchRecyclerAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             if (position == list.size - 1 && isLoadingAdded) LOADING else VIEW_TYPE_NORMAL
         } else {
             VIEW_TYPE_EMPTY
@@ -150,10 +150,10 @@ class SearchRecyclerAdapter(
         isLoadingAdded = false
         val position = list.size - 1
         val item: Movie = getItem(position)
-        if (item != null) {
+
             list.removeAt(position)
             notifyItemRemoved(position)
-        }
+
     }
 
     fun getItem(position: Int): Movie {
@@ -169,7 +169,7 @@ class SearchRecyclerAdapter(
         errored_query = query
         errored_page = page
         retryPageLoad = show
-        notifyItemChanged(list!!.size - 1)
+        notifyItemChanged(list.size - 1)
         if (errorMsg != null) this.errorMsg = errorMsg
     }
 
@@ -191,7 +191,7 @@ class SearchRecyclerAdapter(
                 .apply(RequestOptions().placeholder(R.drawable.film_placeholder))
                 .into(obliqueView)
             itemView.setOnClickListener(View.OnClickListener {
-                if (mCallback != null)
+
                     mCallback.onItemClick(item.id)
             })
         }
@@ -259,8 +259,8 @@ class SearchRecyclerAdapter(
         }
 
         init {
-            ButterKnife.bind(this, itemView!!)
-            loadmoreRetry!!.setOnClickListener(this)
+            ButterKnife.bind(this, itemView)
+            loadmoreRetry.setOnClickListener(this)
         }
     }
 

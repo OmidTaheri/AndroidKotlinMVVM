@@ -9,15 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import ir.omidtaheri.androidkotlinmvvm.R
+import ir.omidtaheri.androidkotlinmvvm.di.component.ActivityComponent
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BaseFragment
+import javax.inject.Inject
 
 
 class GalleryFragment : BaseFragment(), GalleryMvpView {
-
+    @Inject
     lateinit var mPresenter: GalleryMvpPresenter<GalleryMvpView>
 
     @BindView(R.id.image_list)
-    lateinit  var imageList: RecyclerView
+    lateinit var imageList: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,13 @@ class GalleryFragment : BaseFragment(), GalleryMvpView {
     ): View {
         val v: View = inflater.inflate(R.layout.fragment_gallery, container, false)
 
+        val component: ActivityComponent? = getActivityComponent()
+        if (component != null) {
+            component.inject(this)
+            setUnBinder(ButterKnife.bind(this, v))
+            mPresenter.onAttach(this)
+        }
+
         return v
     }
 
@@ -40,12 +49,12 @@ class GalleryFragment : BaseFragment(), GalleryMvpView {
 
         //////////////////////////////
         val manager =
-            MyGridAutofitLayoutManager(mActivity!!.baseContext, imageList)
+            MyGridAutofitLayoutManager(mActivity.baseContext, imageList)
         val layoutManager: GridLayoutManager
-        layoutManager = GridLayoutManager(mActivity!!.baseContext, manager.getmColumnNumber())
+        layoutManager = GridLayoutManager(mActivity.baseContext, manager.getmColumnNumber())
         imageList.setLayoutManager(layoutManager)
         //////////////
-        val adapter = GalleryAdapter(list!!,mActivity!!.baseContext, manager)
+        val adapter = GalleryAdapter(list!!, mActivity.baseContext, manager)
         imageList.setAdapter(adapter)
         layoutManager.setSpanSizeLookup(object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -59,7 +68,7 @@ class GalleryFragment : BaseFragment(), GalleryMvpView {
     }
 
     override fun onDestroyView() {
-        mPresenter?.onDetach()
+        mPresenter.onDetach()
         super.onDestroyView()
     }
 
@@ -69,7 +78,7 @@ class GalleryFragment : BaseFragment(), GalleryMvpView {
             val args = Bundle()
             args.putStringArrayList(
                 "image_urls",
-                image_urls as ArrayList<String?>?
+                ArrayList(image_urls)
             )
             fragment.setArguments(args)
             return fragment

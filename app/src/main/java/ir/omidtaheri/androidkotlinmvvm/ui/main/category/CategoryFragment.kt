@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import butterknife.Unbinder
 import ir.omidtaheri.androidkotlinmvvm.R
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.GenresListResponse
 import ir.omidtaheri.androidkotlinmvvm.di.component.ActivityComponent
@@ -23,7 +22,7 @@ import javax.inject.Inject
 class CategoryFragment : BaseFragment(), CategoryMvpView,
     CategoryAdapter.Callback {
 
-
+    @Inject
     lateinit var mPresenter: CategoryMvpPresenter<CategoryMvpView>
 
     @BindView(R.id.genre_list)
@@ -57,6 +56,15 @@ class CategoryFragment : BaseFragment(), CategoryMvpView,
     ): View {
         val v: View = inflater.inflate(R.layout.fragment_category, container, false)
 
+        val component: ActivityComponent? = getActivityComponent()
+        if (component != null) {
+            component.inject(this)
+            setUnBinder(ButterKnife.bind(this, v))
+            mPresenter.onAttach(this)
+        }
+
+
+
         return v
     }
 
@@ -64,21 +72,21 @@ class CategoryFragment : BaseFragment(), CategoryMvpView,
         if (items == null) {
             mPresenter.getGenreList()
         } else {
-            setListGenre(items!!)
+            setListGenre(items)
         }
     }
 
     override fun onDestroyView() {
-        mPresenter!!.onDetach()
+        mPresenter.onDetach()
         super.onDestroyView()
     }
 
     override fun setListGenre(list: List<GenresListResponse>) {
         items = list
         val adapter = CategoryAdapter(list.toMutableList(), requireContext())
-        genreList!!.adapter = adapter
+        genreList.adapter = adapter
         adapter.setCallback(this)
-        genreList!!.layoutManager =
+        genreList.layoutManager =
             LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
     }
 
@@ -92,26 +100,26 @@ class CategoryFragment : BaseFragment(), CategoryMvpView,
     }
 
     override fun onItemClick(item: GenresListResponse?) {
-        mPresenter!!.showGenreDetailActivity(item!!.id, item.name)
+        mPresenter.showGenreDetailActivity(item!!.id, item.name)
     }
 
     override fun visibility_progressBar(show: Boolean) {
         if (show) {
-            categoryProgressBar!!.visibility = View.VISIBLE
+            categoryProgressBar.visibility = View.VISIBLE
         } else {
-            categoryProgressBar!!.visibility = View.GONE
+            categoryProgressBar.visibility = View.GONE
         }
     }
 
     override fun error_load_List(message: Int) {
-        if (errorLayout!!.visibility == View.GONE) {
-            errorLayout!!.visibility = View.VISIBLE
-            categoryProgressBar!!.visibility = View.GONE
-            erroreText!!.text = resources.getString(message)
+        if (errorLayout.visibility == View.GONE) {
+            errorLayout.visibility = View.VISIBLE
+            categoryProgressBar.visibility = View.GONE
+            erroreText.text = resources.getString(message)
         }
-        errorBtnRetry!!.setOnClickListener {
-            errorLayout!!.visibility = View.GONE
-            categoryProgressBar!!.visibility = View.VISIBLE
+        errorBtnRetry.setOnClickListener {
+            errorLayout.visibility = View.GONE
+            categoryProgressBar.visibility = View.VISIBLE
             mPresenter.getGenreList()
         }
     }

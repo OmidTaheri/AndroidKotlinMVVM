@@ -60,7 +60,7 @@ class VitrinAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             list.size
         } else {
             1
@@ -68,7 +68,7 @@ class VitrinAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             VIEW_TYPE_NORMAL
         } else {
             VIEW_TYPE_EMPTY
@@ -76,7 +76,7 @@ class VitrinAdapter(
     }
 
     fun addItems(repoList: List<Movie>?) {
-        list!!.addAll(repoList!!)
+        list.addAll(repoList!!)
         notifyDataSetChanged()
     }
 
@@ -101,7 +101,7 @@ class VitrinAdapter(
                 .load(poster)
                 .apply(RequestOptions().placeholder(R.drawable.film_placeholder))
                 .into(obliqueView)
-            itemView.setOnClickListener { if (mCallback != null) mCallback.onItemClick(id) }
+            itemView.setOnClickListener {  mCallback.onItemClick(id) }
         }
 
         init {
@@ -116,7 +116,7 @@ class VitrinAdapter(
          override fun clear() {}
         override fun onBind(position: Int) {
             super.onBind(position)
-            message!!.text = "موردی وجود ندارد"
+            message.text = "موردی وجود ندارد"
         }
 
         init {

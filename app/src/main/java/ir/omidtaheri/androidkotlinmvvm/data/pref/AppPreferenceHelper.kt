@@ -5,12 +5,15 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.DetailMovieResponse
+import ir.omidtaheri.androidkotlinmvvm.di.ApplicationContext
+import ir.omidtaheri.androidkotlinmvvm.di.PreferenceInfo
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
+import javax.inject.Inject
 
-class AppPreferenceHelper (val context :Context, val prefFileName :String): PreferencesHelper {
+class AppPreferenceHelper   @Inject constructor (@ApplicationContext val context :Context,@PreferenceInfo val prefFileName :String): PreferencesHelper {
 
 
     companion object{
@@ -28,7 +31,7 @@ class AppPreferenceHelper (val context :Context, val prefFileName :String): Pref
 
         val list: String? = mPrefs.getString(PREF_KEY_FAVORITES_ITEMS, "")
 
-        var movieFromShared: List<DetailMovieResponse> = ArrayList()
+        var movieFromShared: List<DetailMovieResponse>
 
         val type = object : TypeToken<List<DetailMovieResponse>>() {}.type
 
@@ -75,7 +78,7 @@ class AppPreferenceHelper (val context :Context, val prefFileName :String): Pref
 
         val list = mPrefs.getString(PREF_KEY_FAVORITES_ITEMS, "")
 
-        var movieFromShared: List<DetailMovieResponse> = ArrayList()
+        var movieFromShared: List<DetailMovieResponse>
         val type = object : TypeToken<List<DetailMovieResponse?>?>() {}.type
 
 
@@ -83,7 +86,7 @@ class AppPreferenceHelper (val context :Context, val prefFileName :String): Pref
 
 
         for (i in movieFromShared.indices) {
-            if (movieFromShared[i].id === movie_id) {
+            if (movieFromShared[i].id == movie_id) {
                 movieFromShared.drop(i)
             }
         }
@@ -104,7 +107,7 @@ class AppPreferenceHelper (val context :Context, val prefFileName :String): Pref
 
         val list = mPrefs.getString(PREF_KEY_FAVORITES_ITEMS, "")
 
-        var movieFromShared: List<DetailMovieResponse> = ArrayList()
+        var movieFromShared: List<DetailMovieResponse>
 
         val type =
             object : TypeToken<List<DetailMovieResponse>>() {}.type
@@ -113,7 +116,7 @@ class AppPreferenceHelper (val context :Context, val prefFileName :String): Pref
 
         if (movieFromShared != null) {
             for (item in movieFromShared ) {
-                if (item.id === item_id) {
+                if (item.id == item_id) {
                     return true
                 }
             }
@@ -128,7 +131,7 @@ class AppPreferenceHelper (val context :Context, val prefFileName :String): Pref
         val list = mPrefs.getString(PREF_KEY_FAVORITES_ITEMS, "")
 
 
-        var movieFromShared: List<DetailMovieResponse> = ArrayList()
+        var movieFromShared: List<DetailMovieResponse>
         val type = object : TypeToken<List<DetailMovieResponse?>?>() {}.type
 
 

@@ -13,28 +13,30 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import butterknife.Unbinder
+import ir.omidtaheri.androidkotlinmvvm.di.component.ActivityComponent
 
 abstract class BaseDialog : DialogFragment(), DialogMvpView {
 
-    var mActivity: BaseActivity? = null
-        private set
+    lateinit var mActivity: BaseActivity
+    private lateinit var mUnBinder: Unbinder
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is BaseActivity) {
             mActivity = context
-            mActivity?.onFragmentAttached()
+            mActivity.onFragmentAttached()
         }
     }
 
     override fun showLoading() {
-        mActivity?.showLoading()
+        mActivity.showLoading()
     }
 
     override fun hideLoading() {
 
-        mActivity?.hideLoading()
+        mActivity.hideLoading()
 
     }
 
@@ -46,35 +48,49 @@ abstract class BaseDialog : DialogFragment(), DialogMvpView {
 
     override fun onError(resId: Int) {
 
-        mActivity?.onError(resId)
+        mActivity.onError(resId)
 
     }
 
     override fun showMessage(message: String?) {
 
-        mActivity?.showMessage(message)
+        mActivity.showMessage(message)
 
     }
 
     override fun showMessage(resId: Int) {
 
-        mActivity?.showMessage(resId)
+        mActivity.showMessage(resId)
 
     }
 
     override fun isNetworkConnected(): Boolean {
-        return mActivity?.isNetworkConnected() ?: false
+        return mActivity.isNetworkConnected()
     }
 
     override fun onDetach() {
-        mActivity = null
+
         super.onDetach()
     }
 
     override fun hideKeyboard() {
 
-        mActivity?.hideKeyboard()
+        mActivity.hideKeyboard()
 
+    }
+
+
+    open fun getBaseActivity(): BaseActivity {
+        return mActivity
+    }
+
+    open fun getActivityComponent(): ActivityComponent? {
+        return mActivity.getActivityComponent()
+
+    }
+
+    open fun setUnBinder(unBinder: Unbinder) {
+        mUnBinder = unBinder
     }
 
 
@@ -123,10 +139,12 @@ abstract class BaseDialog : DialogFragment(), DialogMvpView {
 
     override fun dismissDialog(tag: String) {
         dismiss()
-        mActivity?.onFragmentDetached(tag)
+        mActivity.onFragmentDetached(tag)
     }
 
     override fun onDestroy() {
+
+        mUnBinder.unbind()
 
         super.onDestroy()
     }

@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
+import butterknife.Unbinder
+import ir.omidtaheri.androidkotlinmvvm.di.component.ActivityComponent
 import ir.omidtaheri.androidkotlinmvvm.utils.CommonUtils
 
 
 abstract class BaseFragment : Fragment(), MvpView {
 
-      var mActivity: BaseActivity? = null
-      lateinit var mProgressDialog: ProgressDialog
+    lateinit var mActivity: BaseActivity
+    lateinit var mProgressDialog: ProgressDialog
+    private lateinit var mUnBinder: Unbinder
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,44 +42,57 @@ abstract class BaseFragment : Fragment(), MvpView {
     }
 
     override fun hideLoading() {
-        if (mProgressDialog != null && mProgressDialog.isShowing) {
+        if (mProgressDialog.isShowing) {
             mProgressDialog.cancel()
         }
     }
 
     override fun onError(message: String?) {
-        mActivity?.onError(message)
+        mActivity.onError(message)
     }
 
     override fun onError(resId: Int) {
-        mActivity?.onError(resId)
+        mActivity.onError(resId)
     }
 
     override fun showMessage(message: String?) {
-        mActivity?.showMessage(message)
+        mActivity.showMessage(message)
     }
 
     override fun showMessage(resId: Int) {
-        mActivity?.showMessage(resId)
+        mActivity.showMessage(resId)
     }
 
     override fun isNetworkConnected(): Boolean {
-        return mActivity?.isNetworkConnected() ?: false
+        return mActivity.isNetworkConnected()
     }
 
     override fun onDetach() {
-        mActivity = null
         super.onDetach()
     }
 
     override fun hideKeyboard() {
-        mActivity?.hideKeyboard()
+        mActivity.hideKeyboard()
     }
 
+
+    open fun getActivityComponent(): ActivityComponent? {
+        return mActivity.getActivityComponent()
+
+    }
+
+    open fun getBaseActivity(): BaseActivity? {
+        return mActivity
+    }
+
+    open fun setUnBinder(unBinder: Unbinder) {
+        mUnBinder = unBinder
+    }
 
     protected abstract fun setUp(view: View)
 
     override fun onDestroy() {
+        mUnBinder.unbind()
 
         super.onDestroy()
     }

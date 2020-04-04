@@ -76,7 +76,7 @@ class FavoriteAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             list.size
         } else {
             1
@@ -84,7 +84,7 @@ class FavoriteAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             VIEW_TYPE_NORMAL
         } else {
             VIEW_TYPE_EMPTY
@@ -92,7 +92,7 @@ class FavoriteAdapter(
     }
 
     fun addItems(repoList: List<DetailMovieResponse>?) {
-        list!!.addAll(repoList!!)
+        list.addAll(repoList!!)
         notifyDataSetChanged()
     }
 
@@ -109,13 +109,13 @@ class FavoriteAdapter(
          override fun clear() {}
         override fun onBind(position: Int) {
             super.onBind(position)
-            val (id, title, poster) = list!![position]
+            val (id, title, poster) = list[position]
             titleMovie!!.text = title
             Glide.with(itemView.context)
                 .load(poster)
                 .apply(RequestOptions().placeholder(R.drawable.film_placeholder))
                 .into(obliqueView!!)
-            itemView.setOnClickListener { if (mCallback != null) mCallback!!.onItemClick(id) }
+            itemView.setOnClickListener {  mCallback.onItemClick(id) }
         }
 
         init {

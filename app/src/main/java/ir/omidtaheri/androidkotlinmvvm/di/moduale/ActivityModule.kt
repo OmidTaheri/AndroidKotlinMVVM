@@ -23,6 +23,22 @@ import ir.omidtaheri.androidkotlinmvvm.ui.detailmovie.summary.SummaryPresenter
 import ir.omidtaheri.androidkotlinmvvm.ui.genredmovies.GenredMoviesMvpPresenter
 import ir.omidtaheri.androidkotlinmvvm.ui.genredmovies.GenredMoviesMvpView
 import ir.omidtaheri.androidkotlinmvvm.ui.genredmovies.GenredMoviesPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.main.MainMvpPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.main.MainMvpView
+import ir.omidtaheri.androidkotlinmvvm.ui.main.MainPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.main.VPagerMainAdapter
+import ir.omidtaheri.androidkotlinmvvm.ui.main.category.CategoryMvpPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.main.category.CategoryMvpView
+import ir.omidtaheri.androidkotlinmvvm.ui.main.category.CategoryPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.main.favorite.FavoriteMvpPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.main.favorite.FavoriteMvpView
+import ir.omidtaheri.androidkotlinmvvm.ui.main.favorite.FavoritePresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.main.vitrin.VitrinMvpPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.main.vitrin.VitrinMvpView
+import ir.omidtaheri.androidkotlinmvvm.ui.main.vitrin.VitrinPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.search.SearchMvpPresenter
+import ir.omidtaheri.androidkotlinmvvm.ui.search.SearchMvpView
+import ir.omidtaheri.androidkotlinmvvm.ui.search.SearchPresenter
 import ir.omidtaheri.androidkotlinmvvm.ui.splash.SplashMvpPresenter
 import ir.omidtaheri.androidkotlinmvvm.ui.splash.SplashMvpView
 import ir.omidtaheri.androidkotlinmvvm.ui.splash.SplashPresenter
@@ -62,13 +78,13 @@ class ActivityModule(private val mActivity: AppCompatActivity) {
         return presenter
     }
 
-//    @Provides
-//    @PerActivity
-//    fun provideMainPresenter(
-//        presenter: MainPresenter<MainMvpView>
-//    ): MainMvpPresenter<MainMvpView> {
-//        return presenter
-//    }
+    @Provides
+    @PerActivity
+    fun provideMainPresenter(
+        presenter: MainPresenter<MainMvpView>
+    ): MainMvpPresenter<MainMvpView> {
+        return presenter
+    }
 
     @Provides
     fun provideDetailMoviePresenter(
@@ -77,10 +93,10 @@ class ActivityModule(private val mActivity: AppCompatActivity) {
         return presenter
     }
 
-//    @Provides
-//    fun provideMVPagerAdapter(): VPagerMainAdapter {
-//        return VPagerMainAdapter(mActivity.supportFragmentManager)
-//    }
+    @Provides
+    fun provideMVPagerAdapter(): VPagerMainAdapter {
+        return VPagerMainAdapter(mActivity.supportFragmentManager)
+    }
 
     @Provides
     fun provideLinearLayoutManager(activity: AppCompatActivity?): LinearLayoutManager {
@@ -95,37 +111,37 @@ class ActivityModule(private val mActivity: AppCompatActivity) {
 //        return presenter
 //    }
 
-//    @Provides
-//    @PerActivity
-//    fun provideFavoritePresenter(
-//        presenter: FavoritePresenter<FavoriteMvpView>
-//    ): FavoriteMvpPresenter<FavoriteMvpView> {
-//        return presenter
-//    }
+    @Provides
+    @PerActivity
+    fun provideFavoritePresenter(
+        presenter: FavoritePresenter<FavoriteMvpView>
+    ): FavoriteMvpPresenter<FavoriteMvpView> {
+        return presenter
+    }
 
-//    @Provides
-//    @PerActivity
-//    fun provideVitrinPresenter(
-//        presenter: VitrinPresenter<VitrinMvpView>
-//    ): VitrinMvpPresenter<VitrinMvpView> {
-//        return presenter
-//    }
+    @Provides
+    @PerActivity
+    fun provideVitrinPresenter(
+        presenter: VitrinPresenter<VitrinMvpView>
+    ): VitrinMvpPresenter<VitrinMvpView> {
+        return presenter
+    }
 
-//    @Provides
-//    @PerActivity
-//    fun provideSearchPresenter(
-//        presenter: SearchPresenter<SearchMvpView>
-//    ): SearchMvpPresenter<SearchMvpView> {
-//        return presenter
-//    }
+    @Provides
+    @PerActivity
+    fun provideSearchPresenter(
+        presenter: SearchPresenter<SearchMvpView>
+    ): SearchMvpPresenter<SearchMvpView> {
+        return presenter
+    }
 
-//    @Provides
-//    @PerActivity
-//    fun provideCategoryPresenter(
-//        presenter: CategoryPresenter<CategoryMvpView>
-//    ): CategoryMvpPresenter<CategoryMvpView> {
-//        return presenter
-//    }
+    @Provides
+    @PerActivity
+    fun provideCategoryPresenter(
+        presenter: CategoryPresenter<CategoryMvpView>
+    ): CategoryMvpPresenter<CategoryMvpView> {
+        return presenter
+    }
 
     @Provides
     @PerActivity

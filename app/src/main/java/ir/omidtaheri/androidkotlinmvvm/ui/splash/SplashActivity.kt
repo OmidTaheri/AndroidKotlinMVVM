@@ -9,14 +9,16 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import butterknife.BindView
+import butterknife.ButterKnife
 import ir.omidtaheri.androidkotlinmvvm.R
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BaseActivity
 import ir.omidtaheri.androidkotlinmvvm.utils.Dialog
+import javax.inject.Inject
 
 
 class SplashActivity : BaseActivity(), SplashMvpView, Dialog.Callback {
 
-
+    @Inject
     lateinit var mPresenter: SplashMvpPresenter<SplashMvpView>
 
     @BindView(R.id.app_name)
@@ -37,12 +39,17 @@ class SplashActivity : BaseActivity(), SplashMvpView, Dialog.Callback {
     @BindView(R.id.copyright)
     lateinit var copyright: TextView
 
-    /////////////////////////////////////////////////////
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        mPresenter.onAttach(this) ?: return
+
+        getActivityComponent().inject(this)
+
+        setUnBinder(ButterKnife.bind(this))
+
+        mPresenter.onAttach(this@SplashActivity)
+
         setUp()
     }
 
@@ -60,7 +67,7 @@ class SplashActivity : BaseActivity(), SplashMvpView, Dialog.Callback {
     }
 
     override fun setUp() {
-        mainProgress?.indeterminateDrawable?.setColorFilter(
+        mainProgress.indeterminateDrawable?.setColorFilter(
             getResources()
                 .getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN
         )
@@ -76,15 +83,15 @@ class SplashActivity : BaseActivity(), SplashMvpView, Dialog.Callback {
     }
 
     override fun showErrorLayout() {
-        if (errorLayout?.getVisibility() === View.GONE) {
-            errorLayout?.setVisibility(View.VISIBLE)
-            mainProgress!!.visibility = View.GONE
+        if (errorLayout.getVisibility() === View.GONE) {
+            errorLayout.setVisibility(View.VISIBLE)
+            mainProgress.visibility = View.GONE
             erroreText.setText(R.string.error_connection)
         }
-        errorBtnRetry?.setOnClickListener {
-            errorLayout?.setVisibility(View.GONE)
-            mainProgress?.visibility = View.VISIBLE
-            mPresenter?.delayToNextActivity(this@SplashActivity)
+        errorBtnRetry.setOnClickListener {
+            errorLayout.setVisibility(View.GONE)
+            mainProgress.visibility = View.VISIBLE
+            mPresenter.delayToNextActivity(this@SplashActivity)
         }
     }
 

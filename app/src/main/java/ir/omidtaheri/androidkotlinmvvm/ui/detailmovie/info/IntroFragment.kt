@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
-import butterknife.Unbinder
 import ir.omidtaheri.androidkotlinmvvm.R
+import ir.omidtaheri.androidkotlinmvvm.di.component.ActivityComponent
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BaseFragment
+import javax.inject.Inject
 
 class IntroFragment : BaseFragment(), IntroMvpView {
-
+    @Inject
     lateinit var mPresenter: IntroMvpPresenter<IntroMvpView>
 
     @BindView(R.id.director)
@@ -45,6 +46,12 @@ class IntroFragment : BaseFragment(), IntroMvpView {
     ): View {
         val v: View = inflater.inflate(R.layout.fragment_intro, container, false)
 
+        val component: ActivityComponent? = getActivityComponent()
+        if (component != null) {
+            component.inject(this)
+            setUnBinder(ButterKnife.bind(this, v))
+            mPresenter.onAttach(this)
+        }
 
         return v
     }

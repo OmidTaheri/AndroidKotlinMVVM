@@ -2,8 +2,9 @@ package ir.omidtaheri.androidkotlinmvvm.data.network
 
 import io.reactivex.Observable
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.*
+import javax.inject.Inject
 
-class AppApiHelper(val mApiInterface: ApiInterface) : ApiHelper {
+class AppApiHelper  @Inject constructor(val mApiInterface: ApiInterface) : ApiHelper {
 
     override fun MovieList(page: Int): Observable<MovieListResponse> {
 

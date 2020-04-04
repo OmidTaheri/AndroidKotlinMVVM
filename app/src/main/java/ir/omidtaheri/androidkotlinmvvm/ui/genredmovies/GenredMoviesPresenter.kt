@@ -6,8 +6,9 @@ import ir.omidtaheri.androidkotlinmvvm.data.DataManager
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.MovieByGenretResponse
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BasePresenter
 import ir.omidtaheri.androidkotlinmvvm.utils.rx.SchedulerProvider
+import javax.inject.Inject
 
-class GenredMoviesPresenter<V : GenredMoviesMvpView> (
+class GenredMoviesPresenter<V : GenredMoviesMvpView>  @Inject constructor(
     dataManager: DataManager,
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable
@@ -21,7 +22,7 @@ class GenredMoviesPresenter<V : GenredMoviesMvpView> (
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe(object : Consumer<MovieByGenretResponse> {
-                    @Throws(Exception::class)
+
                     override fun accept(response: MovieByGenretResponse) {
                         if (!isViewAttached) {
                             return
@@ -30,7 +31,7 @@ class GenredMoviesPresenter<V : GenredMoviesMvpView> (
                         mvpView?.setupList(response.data, genre_id)
                     }
                 }, object : Consumer<Throwable> {
-                    @Throws(Exception::class)
+
                     override fun accept(throwable: Throwable) {
                         if (!isViewAttached) {
                             return
@@ -47,7 +48,7 @@ class GenredMoviesPresenter<V : GenredMoviesMvpView> (
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe(object : Consumer<MovieByGenretResponse>{
-                    @Throws(Exception::class)
+
                     override fun accept(response: MovieByGenretResponse) {
                         if (!isViewAttached) {
                             return
@@ -55,7 +56,7 @@ class GenredMoviesPresenter<V : GenredMoviesMvpView> (
                         mvpView?.sucssed_load_next_page(response.data)
                     }
                 }, object : Consumer<Throwable> {
-                    @Throws(Exception::class)
+
                     override fun accept(throwable: Throwable) {
                         if (!isViewAttached) {
                             return

@@ -6,8 +6,9 @@ import ir.omidtaheri.androidkotlinmvvm.data.DataManager
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.GenresListResponse
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BasePresenter
 import ir.omidtaheri.androidkotlinmvvm.utils.rx.SchedulerProvider
+import javax.inject.Inject
 
-class CategoryPresenter<V : CategoryMvpView> (
+class CategoryPresenter<V : CategoryMvpView>  @Inject constructor(
     dataManager: DataManager,
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable
@@ -36,7 +37,7 @@ class CategoryPresenter<V : CategoryMvpView> (
                             return
                         }
                         mvpView!!.visibility_progressBar(false)
-                        mvpView!!.error_load_List(handleApiError(throwable!!))
+                        mvpView!!.error_load_List(handleApiError(throwable))
                     }
                 })
         )

@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class FavoriteFragment : BaseFragment(), FavoriteMvpView,
     FavoriteAdapter.Callback {
-
+    @Inject
     lateinit var mPresenter: FavoriteMvpPresenter<FavoriteMvpView>
 
     @BindView(R.id.favorit_list)
@@ -38,7 +38,12 @@ class FavoriteFragment : BaseFragment(), FavoriteMvpView,
             container,
             false)
 
-
+        val component: ActivityComponent? = getActivityComponent()
+        if (component != null) {
+            component.inject(this)
+            setUnBinder(ButterKnife.bind(this, v))
+            mPresenter.onAttach(this)
+        }
         return v
     }
 
@@ -47,12 +52,12 @@ class FavoriteFragment : BaseFragment(), FavoriteMvpView,
     }
 
     override fun onDestroyView() {
-        mPresenter!!.onDetach()
+        mPresenter.onDetach()
         super.onDestroyView()
     }
 
     override fun onItemClick(movie_id: Int) {
-        mPresenter!!.showMovieDetailActivity(movie_id)
+        mPresenter.showMovieDetailActivity(movie_id)
     }
 
     override fun setFavoriteList(list: List<DetailMovieResponse>) {
@@ -61,15 +66,15 @@ class FavoriteFragment : BaseFragment(), FavoriteMvpView,
         val manager =
             MyGridAutofitLayoutManager(
                 requireContext(),
-                favoritList!!
+                favoritList
             )
         val layoutManager: GridLayoutManager
         layoutManager = GridLayoutManager( requireContext(), manager.getmColumnNumber())
-        favoritList!!.layoutManager = layoutManager
+        favoritList.layoutManager = layoutManager
         //////////
         val adapter = FavoriteAdapter(list.toMutableList(),  requireContext(), manager)
         adapter.setCallback(this)
-        favoritList!!.adapter = adapter
+        favoritList.adapter = adapter
         layoutManager.spanSizeLookup = object : SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (adapter.getItemViewType(position)) {
@@ -88,7 +93,7 @@ class FavoriteFragment : BaseFragment(), FavoriteMvpView,
             this.javaClass.simpleName
         )
         startActivity(intent)
-       mActivity?.finish()
+       mActivity.finish()
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

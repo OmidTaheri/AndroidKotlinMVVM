@@ -10,9 +10,10 @@ import ir.omidtaheri.androidkotlinmvvm.ui.base.BasePresenter
 import ir.omidtaheri.androidkotlinmvvm.utils.NetworkUtils
 import ir.omidtaheri.androidkotlinmvvm.utils.rx.SchedulerProvider
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
-class SplashPresenter<V : SplashMvpView>  (
+class SplashPresenter<V : SplashMvpView>  @Inject constructor(
     dataManager: DataManager,
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable

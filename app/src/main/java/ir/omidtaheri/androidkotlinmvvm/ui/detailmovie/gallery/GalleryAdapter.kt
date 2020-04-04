@@ -58,7 +58,7 @@ class GalleryAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             list.size
         } else {
             1
@@ -67,7 +67,7 @@ class GalleryAdapter(
 
 
     override fun getItemViewType(position: Int): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             VIEW_TYPE_NORMAL
         } else {
             VIEW_TYPE_EMPTY

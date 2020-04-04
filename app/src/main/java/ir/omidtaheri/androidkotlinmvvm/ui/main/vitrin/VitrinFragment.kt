@@ -23,7 +23,7 @@ import javax.inject.Inject
 class VitrinFragment : BaseFragment(), VitrinMvpView,
     VitrinAdapter.Callback {
 
-
+    @Inject
     lateinit  var mPresenter: VitrinMvpPresenter<VitrinMvpView>
 
     @BindView(R.id.title1)
@@ -120,73 +120,78 @@ class VitrinFragment : BaseFragment(), VitrinMvpView,
             container,
             false
         )
-
+        val component: ActivityComponent? = getActivityComponent()
+        if (component != null) {
+            component.inject(this)
+            setUnBinder(ButterKnife.bind(this, v))
+            mPresenter.onAttach(this)
+        }
         return v
     }
 
     override fun setUp(view: View) {
         hideLoading()
         if (items1 == null) {
-            mPresenter!!.GetMovieListByGenre(3, 1)
+            mPresenter.GetMovieListByGenre(3, 1)
         } else {
-            setupList1(items1!!)
+            setupList1(items1)
         }
         if (items2 == null) {
-            mPresenter!!.GetMovieListByGenre(2, 2)
+            mPresenter.GetMovieListByGenre(2, 2)
         } else {
-            setupList2(items2!!)
+            setupList2(items2)
         }
         if (items3 == null) {
-            mPresenter!!.GetMovieListByGenre(9, 3)
+            mPresenter.GetMovieListByGenre(9, 3)
         } else {
-            setupList3(items3!!)
+            setupList3(items3)
         }
 
         ///
-        showAll1!!.setOnClickListener { mPresenter!!.showAllMovieActivity(3, "Action") }
-        showAll2!!.setOnClickListener { mPresenter!!.showAllMovieActivity(2, "Drama") }
-        showAll3!!.setOnClickListener { mPresenter!!.showAllMovieActivity(9, "Comedy") }
+        showAll1.setOnClickListener { mPresenter.showAllMovieActivity(3, "Action") }
+        showAll2.setOnClickListener { mPresenter.showAllMovieActivity(2, "Drama") }
+        showAll3.setOnClickListener { mPresenter.showAllMovieActivity(9, "Comedy") }
     }
 
     override fun onDestroyView() {
-        mPresenter!!.onDetach()
+        mPresenter.onDetach()
         super.onDestroyView()
     }
 
     override fun onItemClick(movie_id: Int) {
-        mPresenter!!.showMovieDetailActivity(movie_id)
+        mPresenter.showMovieDetailActivity(movie_id)
     }
 
     override fun setupList1(items_list: List<Movie>) {
-        progressBar1!!.visibility = View.GONE
+        progressBar1.visibility = View.GONE
         items1 = items_list
         val adapter = VitrinAdapter(items_list.toMutableList(), requireContext())
         adapter.setCallback(this)
-        list1!!.adapter = adapter
-        list1!!.isFocusable = false
-        list1!!.layoutManager =
+        list1.adapter = adapter
+        list1.isFocusable = false
+        list1.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
     }
 
     override fun setupList2(items_list: List<Movie>) {
-        progressBar2!!.visibility = View.GONE
+        progressBar2.visibility = View.GONE
         items2 = items_list
         val adapter = VitrinAdapter(items_list.toMutableList(),requireContext())
         adapter.setCallback(this)
-        list2!!.adapter = adapter
-        list2!!.isFocusable = false
-        list2!!.layoutManager =
+        list2.adapter = adapter
+        list2.isFocusable = false
+        list2.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
     }
 
     override fun setupList3(items_list: List<Movie>) {
-        progressBar3!!.visibility = View.GONE
+        progressBar3.visibility = View.GONE
         items3 = items_list
         val adapter = VitrinAdapter(items_list.toMutableList(), requireContext())
         adapter.setCallback(this)
-        list3!!.adapter = adapter
-        list3!!.isFocusable = false
-        list3!!.layoutManager =
+        list3.adapter = adapter
+        list3.isFocusable = false
+        list3.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
     }
 
@@ -210,64 +215,64 @@ class VitrinFragment : BaseFragment(), VitrinMvpView,
 
     override fun visibility_progressBar1(show: Boolean) {
         if (show) {
-            progressBar1!!.visibility = View.VISIBLE
+            progressBar1.visibility = View.VISIBLE
         } else {
-            progressBar1!!.visibility = View.GONE
+            progressBar1.visibility = View.GONE
         }
     }
 
     override fun visibility_progressBar2(show: Boolean) {
         if (show) {
-            progressBar2!!.visibility = View.VISIBLE
+            progressBar2.visibility = View.VISIBLE
         } else {
-            progressBar2!!.visibility = View.GONE
+            progressBar2.visibility = View.GONE
         }
     }
 
     override fun visibility_progressBar3(show: Boolean) {
         if (show) {
-            progressBar3!!.visibility = View.VISIBLE
+            progressBar3.visibility = View.VISIBLE
         } else {
-            progressBar3!!.visibility = View.GONE
+            progressBar3.visibility = View.GONE
         }
     }
 
     override fun error_load_List_1(message: Int) {
-        if (errorLayout!!.visibility == View.GONE) {
-            errorLayout!!.visibility = View.VISIBLE
-            progressBar1!!.visibility = View.GONE
-            erroreText!!.text = resources.getString(message)
+        if (errorLayout.visibility == View.GONE) {
+            errorLayout.visibility = View.VISIBLE
+            progressBar1.visibility = View.GONE
+            erroreText.text = resources.getString(message)
         }
-        errorBtnRetry!!.setOnClickListener {
-            errorLayout!!.visibility = View.GONE
-            progressBar1!!.visibility = View.VISIBLE
-            mPresenter!!.GetMovieListByGenre(3, 1)
+        errorBtnRetry.setOnClickListener {
+            errorLayout.visibility = View.GONE
+            progressBar1.visibility = View.VISIBLE
+            mPresenter.GetMovieListByGenre(3, 1)
         }
     }
 
     override fun error_load_List_2(message: Int) {
-        if (errorLayout2!!.visibility == View.GONE) {
-            errorLayout2!!.visibility = View.VISIBLE
-            progressBar2!!.visibility = View.GONE
-            errorText2!!.text = resources.getString(message)
+        if (errorLayout2.visibility == View.GONE) {
+            errorLayout2.visibility = View.VISIBLE
+            progressBar2.visibility = View.GONE
+            errorText2.text = resources.getString(message)
         }
-        errorBtnRetry2!!.setOnClickListener {
-            errorLayout2!!.visibility = View.GONE
-            progressBar2!!.visibility = View.VISIBLE
-            mPresenter!!.GetMovieListByGenre(2, 2)
+        errorBtnRetry2.setOnClickListener {
+            errorLayout2.visibility = View.GONE
+            progressBar2.visibility = View.VISIBLE
+            mPresenter.GetMovieListByGenre(2, 2)
         }
     }
 
     override fun error_load_List_3(message: Int) {
-        if (errorLayout3!!.visibility == View.GONE) {
-            errorLayout3!!.visibility = View.VISIBLE
-            progressBar3!!.visibility = View.GONE
-            errorText3!!.text = resources.getString(message)
+        if (errorLayout3.visibility == View.GONE) {
+            errorLayout3.visibility = View.VISIBLE
+            progressBar3.visibility = View.GONE
+            errorText3.text = resources.getString(message)
         }
-        errorBtnRetry3!!.setOnClickListener {
-            errorLayout3!!.visibility = View.GONE
-            progressBar3!!.visibility = View.VISIBLE
-            mPresenter!!.GetMovieListByGenre(9, 3)
+        errorBtnRetry3.setOnClickListener {
+            errorLayout3.visibility = View.GONE
+            progressBar3.visibility = View.VISIBLE
+            mPresenter.GetMovieListByGenre(9, 3)
         }
     }
 

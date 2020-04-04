@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
-import butterknife.Unbinder
 import ir.omidtaheri.androidkotlinmvvm.R
+import ir.omidtaheri.androidkotlinmvvm.di.component.ActivityComponent
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BaseFragment
+import javax.inject.Inject
 
 class SummaryFragment : BaseFragment(), SummaryMvpView {
-
+    @Inject
     lateinit var mPresenter: SummaryMvpPresenter<SummaryMvpView>
 
     @BindView(R.id.description)
@@ -28,7 +29,12 @@ class SummaryFragment : BaseFragment(), SummaryMvpView {
         savedInstanceState: Bundle?
     ): View {
         val v: View = inflater.inflate(R.layout.fragment_description, container, false)
-
+        val component: ActivityComponent? = getActivityComponent()
+        if (component != null) {
+            component.inject(this)
+            setUnBinder(ButterKnife.bind(this, v))
+            mPresenter.onAttach(this)
+        }
         return v
     }
 
@@ -37,7 +43,7 @@ class SummaryFragment : BaseFragment(), SummaryMvpView {
         savedInstanceState: Bundle?
     ) {
         val plot: String = getArguments()?.getString("plot", "") ?: ""
-        description!!.text = plot
+        description.text = plot
     }
 
     override fun setUp(view: View) {}

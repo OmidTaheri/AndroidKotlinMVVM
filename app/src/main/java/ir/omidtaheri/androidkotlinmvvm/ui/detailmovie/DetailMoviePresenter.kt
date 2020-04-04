@@ -6,9 +6,10 @@ import ir.omidtaheri.androidkotlinmvvm.data.DataManager
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.DetailMovieResponse
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BasePresenter
 import ir.omidtaheri.androidkotlinmvvm.utils.rx.SchedulerProvider
+import javax.inject.Inject
 
 
-class DetailMoviePresenter<V : DetailMovieMvpView>(
+class DetailMoviePresenter<V : DetailMovieMvpView>  @Inject constructor(
     dataManager: DataManager,
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable

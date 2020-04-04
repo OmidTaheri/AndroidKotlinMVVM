@@ -20,9 +20,10 @@ import ir.omidtaheri.androidkotlinmvvm.data.DataManager
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.SearchNameResponse
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BasePresenter
 import ir.omidtaheri.androidkotlinmvvm.utils.rx.SchedulerProvider
+import javax.inject.Inject
 
 
-class SearchPresenter<V : SearchMvpView>(
+class SearchPresenter<V : SearchMvpView> @Inject constructor(
     dataManager: DataManager,
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable

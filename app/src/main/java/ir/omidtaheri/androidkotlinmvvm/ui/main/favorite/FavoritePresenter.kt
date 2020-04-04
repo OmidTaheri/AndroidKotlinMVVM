@@ -5,8 +5,9 @@ import ir.omidtaheri.androidkotlinmvvm.data.DataManager
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.DetailMovieResponse
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BasePresenter
 import ir.omidtaheri.androidkotlinmvvm.utils.rx.SchedulerProvider
+import javax.inject.Inject
 
-class FavoritePresenter<V : FavoriteMvpView>(
+class FavoritePresenter<V : FavoriteMvpView>  @Inject constructor(
     dataManager: DataManager,
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable

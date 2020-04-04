@@ -24,11 +24,12 @@ import com.google.android.material.tabs.TabLayout
 import ir.omidtaheri.androidkotlinmvvm.R
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.DetailMovieResponse
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BaseActivity
+import javax.inject.Inject
 
 
 class DetailMovieActivity : BaseActivity(), DetailMovieMvpView,
     AppBarLayout.OnOffsetChangedListener {
-
+    @Inject
     lateinit var mPresenter: DetailMovieMvpPresenter<DetailMovieMvpView>
 
     @BindView(R.id.main_toolbar)
@@ -71,7 +72,13 @@ class DetailMovieActivity : BaseActivity(), DetailMovieMvpView,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_movie_bytechnic)
 
+
+        getActivityComponent().inject(this)
+
+        setUnBinder(ButterKnife.bind(this))
+
         mPresenter.onAttach(this)
+
         setUp()
     }
 
@@ -115,12 +122,12 @@ class DetailMovieActivity : BaseActivity(), DetailMovieMvpView,
         mMaxScrollSize = appbar.getTotalScrollRange()
         movie_id = getIntent().getExtras()?.getInt("movie_id") ?: 0
         ParentTag = getIntent().getExtras()?.getString("ParentTag") ?: ""
-        if (mPresenter!!.existInFavorite(movie_id)) {
+        if (mPresenter.existInFavorite(movie_id)) {
             fab.setImageResource(R.drawable.heart)
         } else {
             fab.setImageResource(R.drawable.heart_outline)
         }
-        mPresenter!!.getDetailMovie(movie_id)
+        mPresenter.getDetailMovie(movie_id)
     }
 
     override fun showDetailMovie(detailMovie: DetailMovieResponse) {
@@ -170,7 +177,7 @@ class DetailMovieActivity : BaseActivity(), DetailMovieMvpView,
     }
 
     override fun onDestroy() {
-        mPresenter!!.onDetach()
+        mPresenter.onDetach()
         super.onDestroy()
     }
 

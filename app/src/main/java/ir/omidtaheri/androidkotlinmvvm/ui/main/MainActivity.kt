@@ -2,7 +2,6 @@ package ir.omidtaheri.androidkotlinmvvm.ui.main
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -21,10 +20,10 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainMvpView {
 
-
+    @Inject
     lateinit var mPresenter: MainMvpPresenter<MainMvpView>
 
-
+    @Inject
     lateinit var vPagerAdapter: VPagerMainAdapter
 
     @BindView(R.id.toolbar)
@@ -53,33 +52,39 @@ class MainActivity : BaseActivity(), MainMvpView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mPresenter!!.onAttach(this)
+        getActivityComponent().inject(this)
+
+        setUnBinder(ButterKnife.bind(this))
+
+        mPresenter.onAttach(this)
+
+
         setUp()
     }
 
     override fun onDestroy() {
-        mPresenter!!.onDetach()
+        mPresenter.onDetach()
         super.onDestroy()
     }
 
       override fun setUp() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle(R.string.app_name)
-        vpager!!.adapter = vPagerAdapter
-        tablayout!!.setupWithViewPager(vpager)
-        vpager!!.currentItem = 2
+        vpager.adapter = vPagerAdapter
+        tablayout.setupWithViewPager(vpager)
+        vpager.currentItem = 2
 //        val typeface: Typeface = TypefaceUtils.load(
 //            assets,
 //            getString(R.string.font_path_regular)
 //        )
-        for (i in 0 until tablayout!!.tabCount) {
+        for (i in 0 until tablayout.tabCount) {
             val tv = LayoutInflater.from(this).inflate(
                 R.layout.custom_tab_item_main,
                 null
             ) as TextView
-            tv.text = vpager!!.adapter!!.getPageTitle(i)
+            tv.text = vpager.adapter!!.getPageTitle(i)
             //tv.setTypeface(typeface)
-            tablayout!!.getTabAt(i)!!.customView = tv
+            tablayout.getTabAt(i)!!.customView = tv
         }
     }
 
@@ -92,11 +97,11 @@ class MainActivity : BaseActivity(), MainMvpView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_search -> {
-                mPresenter!!.showSearchActivity()
+                mPresenter.showSearchActivity()
                 true
             }
             R.id.action_aboutus -> {
-                mPresenter!!.showAboutUsActivity()
+                mPresenter.showAboutUsActivity()
                 true
             }
             else -> super.onOptionsItemSelected(item)

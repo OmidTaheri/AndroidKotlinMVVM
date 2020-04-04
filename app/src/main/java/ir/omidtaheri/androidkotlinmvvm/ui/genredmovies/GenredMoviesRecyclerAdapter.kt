@@ -82,7 +82,7 @@ class GenredMoviesRecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (list != null && list.size != 0) {
+        return if ( list.size != 0) {
             list.size
         } else {
             1
@@ -100,7 +100,7 @@ class GenredMoviesRecyclerAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (list != null && list.size > 0) {
+        return if ( list.size > 0) {
             if (position == list.size - 1 && isLoadingAdded) LOADING else VIEW_TYPE_NORMAL
         } else {
             VIEW_TYPE_EMPTY
@@ -147,16 +147,16 @@ class GenredMoviesRecyclerAdapter(
 
     fun removeLoadingFooter() {
         isLoadingAdded = false
-        val position = list!!.size - 1
+        val position = list.size - 1
         val item = getItem(position)
-        if (item != null) {
+
             list.removeAt(position)
             notifyItemRemoved(position)
-        }
+
     }
 
     fun getItem(position: Int): Movie {
-        return list!![position]
+        return list[position]
     }
 
     fun showRetry(
@@ -168,7 +168,7 @@ class GenredMoviesRecyclerAdapter(
         errored_category_id = category_id
         errored_page = page
         retryPageLoad = show
-        notifyItemChanged(list!!.size - 1)
+        notifyItemChanged(list.size - 1)
         if (errorMsg != null) this.errorMsg = errorMsg
     }
 
@@ -188,7 +188,7 @@ class GenredMoviesRecyclerAdapter(
                 .load(poster)
                 .apply(RequestOptions().placeholder(R.drawable.film_placeholder))
                 .into(obliqueView)
-            itemView.setOnClickListener { if (mCallback != null) mCallback.onItemClick(id) }
+            itemView.setOnClickListener { mCallback.onItemClick(id) }
         }
 
         init {
@@ -229,23 +229,23 @@ class GenredMoviesRecyclerAdapter(
         override fun onBind(position: Int) {
             super.onBind(position)
             if (retryPageLoad) {
-                loadmoreErrorlayout!!.visibility = View.VISIBLE
-                loadmoreProgress!!.visibility = View.GONE
-                if (errorMsg!!.length != 0) {
-                    loadmoreErrortxt!!.text = errorMsg
+                loadmoreErrorlayout.visibility = View.VISIBLE
+                loadmoreProgress.visibility = View.GONE
+                if (errorMsg.length != 0) {
+                    loadmoreErrortxt.text = errorMsg
                 } else {
-                    loadmoreErrortxt!!.setText(R.string.error_load_page)
+                    loadmoreErrortxt.setText(R.string.error_load_page)
                 }
             } else {
-                loadmoreErrorlayout!!.visibility = View.GONE
-                loadmoreProgress!!.visibility = View.VISIBLE
+                loadmoreErrorlayout.visibility = View.GONE
+                loadmoreProgress.visibility = View.VISIBLE
             }
         }
 
         override fun onClick(v: View) {
             when (v.id) {
                 R.id.loadmore_retry -> {
-                    mCallback!!.retryPageLoad(errored_category_id, errored_page)
+                    mCallback.retryPageLoad(errored_category_id, errored_page)
                     showRetry(false, null, 0, 0)
                 }
             }
@@ -253,7 +253,7 @@ class GenredMoviesRecyclerAdapter(
 
         init {
             ButterKnife.bind(this, itemView!!)
-            loadmoreRetry!!.setOnClickListener(this)
+            loadmoreRetry.setOnClickListener(this)
         }
     }
 

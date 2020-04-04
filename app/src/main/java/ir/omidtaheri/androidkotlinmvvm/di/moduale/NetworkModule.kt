@@ -28,8 +28,8 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-        converter: Converter.Factory?,
-        @Base_Url baseUrl: String?
+        converter: Converter.Factory,
+        @Base_Url baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
