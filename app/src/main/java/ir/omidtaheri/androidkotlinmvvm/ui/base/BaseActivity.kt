@@ -38,7 +38,7 @@ abstract class BaseActivity : AppCompatActivity(), MvpView, BaseFragment.Callbac
 
         mActivityComponent = DaggerActivityComponent.builder()
             .activityModule(ActivityModule(this))
-            .applicationComponent((application as AppLoader).getComponent())
+            .applicationComponent((applicationContext as AppLoader).getComponent())
             .build()
     }
 
@@ -67,7 +67,7 @@ abstract class BaseActivity : AppCompatActivity(), MvpView, BaseFragment.Callbac
     }
 
     override fun hideLoading() {
-        if (mProgressDialog.isShowing) {
+        if (::mProgressDialog.isInitialized && mProgressDialog.isShowing) {
             mProgressDialog.cancel()
         }
     }

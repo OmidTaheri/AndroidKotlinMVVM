@@ -113,7 +113,8 @@ dependencies {
 
     // code generator for view
     implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
+    kapt "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
+
 
     // image
     implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"

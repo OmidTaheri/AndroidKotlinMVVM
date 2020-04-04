@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true">
 
 
-    <androidx.constraintlayout.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -206,5 +206,5 @@
             android:lineSpacingExtra="@dimen/lineSpacingExtra"/>
 
 
-    </androidx.constraintlayout.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

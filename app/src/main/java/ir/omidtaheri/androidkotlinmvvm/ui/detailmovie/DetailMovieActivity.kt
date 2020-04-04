@@ -2,7 +2,6 @@ package ir.omidtaheri.androidkotlinmvvm.ui.detailmovie
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -24,6 +23,8 @@ import com.google.android.material.tabs.TabLayout
 import ir.omidtaheri.androidkotlinmvvm.R
 import ir.omidtaheri.androidkotlinmvvm.data.network.model.DetailMovieResponse
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BaseActivity
+import ir.omidtaheri.androidkotlinmvvm.ui.main.MainActivity
+import ir.omidtaheri.androidkotlinmvvm.ui.main.favorite.FavoriteFragment
 import javax.inject.Inject
 
 
@@ -106,18 +107,18 @@ class DetailMovieActivity : BaseActivity(), DetailMovieMvpView,
         setSupportActionBar(mtoolbar)
         getSupportActionBar()?.setTitle("")
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        mainCollapsing.setExpandedTitleTypeface(
-            Typeface.createFromAsset(
-                getAssets(),
-                "fonts/roboto_regular.ttf"
-            )
-        )
-        mainCollapsing.setCollapsedTitleTypeface(
-            Typeface.createFromAsset(
-                getAssets(),
-                "fonts/roboto_regular.ttf"
-            )
-        )
+//        mainCollapsing.setExpandedTitleTypeface(
+//            Typeface.createFromAsset(
+//                getAssets(),
+//                "fonts/roboto_regular.ttf"
+//            )
+//        )
+//        mainCollapsing.setCollapsedTitleTypeface(
+//            Typeface.createFromAsset(
+//                getAssets(),
+//                "fonts/roboto_regular.ttf"
+//            )
+//        )
         appbar.addOnOffsetChangedListener(this)
         mMaxScrollSize = appbar.getTotalScrollRange()
         movie_id = getIntent().getExtras()?.getInt("movie_id") ?: 0
@@ -200,12 +201,12 @@ class DetailMovieActivity : BaseActivity(), DetailMovieMvpView,
     }
 
     override fun onBackPressed() {
-//        if (ParentTag == FavoriteFragment::class.java.getSimpleName()) {
-//            startActivity(MainActivity.getStartIntent(this))
-//            finish()
-//        } else {
-//            super.onBackPressed()
-//        }
+        if (ParentTag == FavoriteFragment::class.java.getSimpleName()) {
+            startActivity(MainActivity.getStartIntent(this))
+            finish()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     companion object {

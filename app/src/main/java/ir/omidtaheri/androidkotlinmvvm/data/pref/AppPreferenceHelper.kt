@@ -31,7 +31,7 @@ class AppPreferenceHelper   @Inject constructor (@ApplicationContext val context
 
         val list: String? = mPrefs.getString(PREF_KEY_FAVORITES_ITEMS, "")
 
-        var movieFromShared: List<DetailMovieResponse>
+        var movieFromShared: List<DetailMovieResponse>?
 
         val type = object : TypeToken<List<DetailMovieResponse>>() {}.type
 
@@ -45,10 +45,12 @@ class AppPreferenceHelper   @Inject constructor (@ApplicationContext val context
             if (list?.length != 0) {
                 jsonArrayMovie = JSONArray(list)
 
-                for (item in movieFromShared) {
-                    if (item.id == movie.id) {
-                        break_boolean = true
-                        break
+                if (movieFromShared != null) {
+                    for (item in movieFromShared) {
+                        if (item.id == movie.id) {
+                            break_boolean = true
+                            break
+                        }
                     }
                 }
 
@@ -78,16 +80,17 @@ class AppPreferenceHelper   @Inject constructor (@ApplicationContext val context
 
         val list = mPrefs.getString(PREF_KEY_FAVORITES_ITEMS, "")
 
-        var movieFromShared: List<DetailMovieResponse>
+        var movieFromShared: List<DetailMovieResponse>?
         val type = object : TypeToken<List<DetailMovieResponse?>?>() {}.type
 
 
         movieFromShared = gson.fromJson(list, type)
 
-
-        for (i in movieFromShared.indices) {
-            if (movieFromShared[i].id == movie_id) {
-                movieFromShared.drop(i)
+        if (movieFromShared != null) {
+            for (i in movieFromShared.indices) {
+                if (movieFromShared[i].id == movie_id) {
+                    movieFromShared.drop(i)
+                }
             }
         }
 
@@ -107,7 +110,7 @@ class AppPreferenceHelper   @Inject constructor (@ApplicationContext val context
 
         val list = mPrefs.getString(PREF_KEY_FAVORITES_ITEMS, "")
 
-        var movieFromShared: List<DetailMovieResponse>
+        var movieFromShared: List<DetailMovieResponse>?
 
         val type =
             object : TypeToken<List<DetailMovieResponse>>() {}.type
@@ -131,7 +134,7 @@ class AppPreferenceHelper   @Inject constructor (@ApplicationContext val context
         val list = mPrefs.getString(PREF_KEY_FAVORITES_ITEMS, "")
 
 
-        var movieFromShared: List<DetailMovieResponse>
+        var movieFromShared: List<DetailMovieResponse>?
         val type = object : TypeToken<List<DetailMovieResponse?>?>() {}.type
 
 

@@ -69,7 +69,7 @@ class CategoryFragment : BaseFragment(), CategoryMvpView,
     }
 
     override fun setUp(view: View) {
-        if (items == null) {
+        if (!::items.isInitialized) {
             mPresenter.getGenreList()
         } else {
             setListGenre(items)

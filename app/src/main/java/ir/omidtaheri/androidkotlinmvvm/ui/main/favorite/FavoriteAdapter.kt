@@ -26,7 +26,7 @@ class FavoriteAdapter(
     var Manager: MyGridAutofitLayoutManager
 ) : RecyclerView.Adapter<BaseViewHolder>() {
 
-    private lateinit  var mCallback: Callback
+    private lateinit var mCallback: Callback
 
     fun setCallback(callback: Callback) {
         mCallback = callback
@@ -47,8 +47,8 @@ class FavoriteAdapter(
                 val Card: CardView =
                     layout.findViewById(R.id.parent)
                 Card.layoutParams = FrameLayout.LayoutParams(
-                    ViewUtils.dpToPx(Manager.getmColumnWidth().toFloat()) ,WRAP_CONTENT
-                  //  CardView.LayoutParams.WRAP_CONTENT
+                    ViewUtils.dpToPx(Manager.getmColumnWidth().toFloat()), WRAP_CONTENT
+                    //  CardView.LayoutParams.WRAP_CONTENT
                 )
                 ViewHolder(
                     layout
@@ -76,7 +76,7 @@ class FavoriteAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if ( list.size > 0) {
+        return if (list.size > 0) {
             list.size
         } else {
             1
@@ -84,7 +84,7 @@ class FavoriteAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if ( list.size > 0) {
+        return if (list.size > 0) {
             VIEW_TYPE_NORMAL
         } else {
             VIEW_TYPE_EMPTY
@@ -102,11 +102,11 @@ class FavoriteAdapter(
 
     inner class ViewHolder(itemView: View?) : BaseViewHolder(itemView!!) {
         @BindView(R.id.obliqueView)
-        var obliqueView: ObliqueView? = null
+        lateinit var obliqueView: ObliqueView
 
         @BindView(R.id.title_movie)
-        var titleMovie: TextView? = null
-         override fun clear() {}
+        lateinit var titleMovie: TextView
+        override fun clear() {}
         override fun onBind(position: Int) {
             super.onBind(position)
             val (id, title, poster) = list[position]
@@ -115,7 +115,7 @@ class FavoriteAdapter(
                 .load(poster)
                 .apply(RequestOptions().placeholder(R.drawable.film_placeholder))
                 .into(obliqueView!!)
-            itemView.setOnClickListener {  mCallback.onItemClick(id) }
+            itemView.setOnClickListener { mCallback.onItemClick(id) }
         }
 
         init {
@@ -126,8 +126,8 @@ class FavoriteAdapter(
     inner class EmptyViewHolder(itemView: View?) :
         BaseViewHolder(itemView!!) {
         @BindView(R.id.message)
-        var message: TextView? = null
-         override fun clear() {}
+        lateinit var message: TextView
+        override fun clear() {}
         override fun onBind(position: Int) {
             super.onBind(position)
             message!!.text = "آیتم برگزیده وجود ندارد"

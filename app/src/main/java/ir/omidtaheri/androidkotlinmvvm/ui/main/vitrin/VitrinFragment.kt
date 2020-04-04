@@ -131,17 +131,17 @@ class VitrinFragment : BaseFragment(), VitrinMvpView,
 
     override fun setUp(view: View) {
         hideLoading()
-        if (items1 == null) {
+        if ( !::items1.isInitialized ) {
             mPresenter.GetMovieListByGenre(3, 1)
         } else {
             setupList1(items1)
         }
-        if (items2 == null) {
+        if (!::items2.isInitialized) {
             mPresenter.GetMovieListByGenre(2, 2)
         } else {
             setupList2(items2)
         }
-        if (items3 == null) {
+        if (!::items3.isInitialized) {
             mPresenter.GetMovieListByGenre(9, 3)
         } else {
             setupList3(items3)

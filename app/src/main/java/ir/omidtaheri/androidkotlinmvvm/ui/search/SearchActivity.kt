@@ -26,6 +26,7 @@ import javax.inject.Inject
 class SearchActivity : BaseActivity(), SearchMvpView,
     SearchRecyclerAdapter.Callback,
     MaterialSearchBar.OnSearchActionListener {
+
     @Inject
     lateinit var mPresenter: SearchMvpPresenter<SearchMvpView>
 

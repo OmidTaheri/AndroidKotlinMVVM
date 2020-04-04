@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
@@ -88,25 +86,9 @@ class MainActivity : BaseActivity(), MainMvpView {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.main, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_search -> {
-                mPresenter.showSearchActivity()
-                true
-            }
-            R.id.action_aboutus -> {
-                mPresenter.showAboutUsActivity()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+
+
 
     override fun showSearchActivity() {
         startActivity(SearchActivity.getStartIntent(this))

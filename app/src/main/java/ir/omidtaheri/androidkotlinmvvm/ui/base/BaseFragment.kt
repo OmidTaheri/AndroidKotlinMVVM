@@ -42,7 +42,7 @@ abstract class BaseFragment : Fragment(), MvpView {
     }
 
     override fun hideLoading() {
-        if (mProgressDialog.isShowing) {
+        if (::mProgressDialog.isInitialized && mProgressDialog.isShowing) {
             mProgressDialog.cancel()
         }
     }

@@ -12,6 +12,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import ir.omidtaheri.androidkotlinmvvm.R
 import ir.omidtaheri.androidkotlinmvvm.ui.base.BaseActivity
+import ir.omidtaheri.androidkotlinmvvm.ui.main.MainActivity
 import ir.omidtaheri.androidkotlinmvvm.utils.Dialog
 import javax.inject.Inject
 
@@ -48,7 +49,7 @@ class SplashActivity : BaseActivity(), SplashMvpView, Dialog.Callback {
 
         setUnBinder(ButterKnife.bind(this))
 
-        mPresenter.onAttach(this@SplashActivity)
+        mPresenter.onAttach(this)
 
         setUp()
     }
@@ -59,11 +60,11 @@ class SplashActivity : BaseActivity(), SplashMvpView, Dialog.Callback {
     }
 
     override fun onFragmentAttached() {
-        TODO("Not yet implemented")
+
     }
 
     override fun onFragmentDetached(tag: String) {
-        TODO("Not yet implemented")
+
     }
 
     override fun setUp() {
@@ -77,9 +78,9 @@ class SplashActivity : BaseActivity(), SplashMvpView, Dialog.Callback {
 
 
     override fun launchMainActivity() {
-//        val intent: Intent = MainActivity.getStartIntent(this@SplashActivity)
-//        startActivity(intent)
-//        finish()
+        val intent: Intent = MainActivity.getStartIntent(this)
+        startActivity(intent)
+        finish()
     }
 
     override fun showErrorLayout() {
@@ -91,7 +92,7 @@ class SplashActivity : BaseActivity(), SplashMvpView, Dialog.Callback {
         errorBtnRetry.setOnClickListener {
             errorLayout.setVisibility(View.GONE)
             mainProgress.visibility = View.VISIBLE
-            mPresenter.delayToNextActivity(this@SplashActivity)
+            mPresenter.delayToNextActivity(this)
         }
     }
 
