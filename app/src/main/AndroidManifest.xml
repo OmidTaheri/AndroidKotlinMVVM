@@ -3,6 +3,7 @@
     package="ir.omidtaheri.androidkotlinmvvm">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +18,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.base.BaseActivity" />
-    </application>
 
-</manifest>
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.detailmovie.DetailMovieActivity"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:screenOrientation="portrait"></activity>
+
+
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:screenOrientation="portrait" />
+
+
+
+    <activity
+        android:name=".ui.genredmovies.GenredMoviesActivity"
+        android:parentActivityName=".ui.main.MainActivity"
+        android:screenOrientation="portrait" />
+
+
+</application>
+
+    </manifest>
